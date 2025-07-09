@@ -1,0 +1,67 @@
+/* Orders page container */
+.orders-container {
+  margin-top: 100px; /* to avoid overlap with fixed navbar */
+  padding: 30px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Section Title */
+.orders-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #2e7d32;
+  margin-bottom: 20px;
+}
+
+/* Each order block */
+.order-card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 6px rgba(0, 128, 0, 0.1);
+}
+
+/* Order title/header */
+.order-header {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Order item list */
+.order-items {
+  padding-left: 20px;
+  margin: 0;
+}
+
+.order-items li {
+  margin-bottom: 6px;
+}
+
+/* Order total */
+.order-total {
+  font-weight: bold;
+  color: #1b5e20;
+  margin-top: 10px;
+}
+
+.clear-history-btn {
+  background-color: #c62828;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.clear-history-btn:hover {
+  background-color: #b71c1c;
+}
