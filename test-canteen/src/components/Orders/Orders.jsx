@@ -7,6 +7,7 @@ const Orders = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const token = localStorage.getItem('access_token');
+  const user = JSON.parse(localStorage.getItem('user'));
 
   const axiosConfig = {
     headers: {
@@ -19,25 +20,21 @@ const Orders = () => {
     setError('');
     try {
       const res = await axios.get('http://localhost:8000/api/orders/', axiosConfig);
-      setOrders(res.data.results || []);
+      const apiOrders = res.data.results || [];
+
+      let localOrders = [];
+      if (user?.email) {
+        const localKey = `orderHistory_${user.email}`;
+        localOrders = JSON.parse(localStorage.getItem(localKey)) || [];
+      }
+
+      const combinedOrders = [...localOrders, ...apiOrders];
+      setOrders(combinedOrders);
     } catch (err) {
       console.error('Failed to fetch orders:', err);
       setError('Failed to load order history.');
     } finally {
       setLoading(false);
-    }
-  };
-
-  const handleCancelOrder = async (orderId) => {
-    const confirm = window.confirm(`Are you sure you want to cancel Order #${orderId}?`);
-    if (!confirm) return;
-
-    try {
-      await axios.post(`http://localhost:8000/api/orders/${orderId}/cancel/`, {}, axiosConfig);
-      fetchOrders(); // refresh list
-    } catch (err) {
-      console.error('Cancel failed:', err);
-      alert('Failed to cancel order.');
     }
   };
 
@@ -57,51 +54,61 @@ const Orders = () => {
       ) : orders.length === 0 ? (
         <p>No orders found.</p>
       ) : (
-        <>
-          {orders.map((order) => {
-            const orderTime = new Date(order.created_at).toLocaleString();
-            const items = order.items.map((item) => {
-              const name = item.menu_item_name || item.menu_item?.name || `Item #${item.menu_item?.id || 'N/A'}`;
-              const quantity = item.quantity;
-              const price = parseFloat(item.menu_item_price ?? item.menu_item?.price ?? 0);
-              return {
-                name,
-                quantity,
-                price,
-                subtotal: price * quantity,
-              };
-            });
+        <div className="orders-table-wrapper">
+          <table className="orders-table">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Items</th>
+                <th>Total (₹)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {orders.map((order, index) => {
+                const orderTime = new Date(order.created_at || order.time).toLocaleString();
+                const items = (order.items || []).map((item) => {
+                  const name =
+                    item.menu_item_name ||
+                    item.name ||
+                    item.menu_item?.name ||
+                    `Item #${item.menu_item?.id || 'N/A'}`;
+                  const quantity = item.quantity;
+                  const price = parseFloat(
+                    item.price ?? item.menu_item_price ?? item.menu_item?.price ?? 0
+                  );
+                  return {
+                    name,
+                    quantity,
+                    price,
+                    subtotal: price * quantity,
+                  };
+                });
 
-            const total = parseFloat(order.total_amount || 0).toFixed(2);
+                const total = parseFloat(order.total || order.total_amount || 0).toFixed(2);
 
-            return (
-              <div className="order-card" key={order.id}>
-                <div className="order-header">Order #{order.id}</div>
-                <p><strong>Status:</strong> {order.status}</p>
-                <p><strong>Placed On:</strong> {orderTime}</p>
-                {order.notes && <p><strong>Notes:</strong> {order.notes}</p>}
-
-                <ul className="order-items">
-                  {items.map((item, index) => (
-                    <li key={index}>
-                      {item.name} × {item.quantity} = ₹{item.subtotal.toFixed(2)}
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="order-total"><strong>Total:</strong> ₹{total}</div>
-
-                <div className="order-actions">
-                  {order.status === "PLACED" && (
-                    <button className="cancel-order-btn" onClick={() => handleCancelOrder(order.id)}>
-                      ❌ Cancel Order
-                    </button>
-                  )}
-                </div>
-              </div>
-            );
-          })}
-        </>
+                return (
+                  <tr key={order.id || index}>
+                    <td>{order.orderId || order.id}</td>
+                    <td>{orderTime}</td>
+                    <td>{order.status || 'CONFIRMED'}</td>
+                    <td>
+                      <ul className="order-items-list">
+                        {items.map((item, idx) => (
+                          <li key={idx}>
+                            {item.name} × {item.quantity} = ₹{item.subtotal.toFixed(2)}
+                          </li>
+                        ))}
+                      </ul>
+                    </td>
+                    <td>₹{total}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );

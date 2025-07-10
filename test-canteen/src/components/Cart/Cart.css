@@ -2,7 +2,7 @@
   margin-top: 20px;
   padding: 20px;
   border: 2px dashed #2e7d32;
-  background-color: #f0fff4;
+  background-color: #001506;
   border-radius: 8px;
 }
 
@@ -104,7 +104,7 @@
 .order-confirmation {
   margin-top: 30px;
   padding: 20px;
-  background-color: #f0fff4;
+  background-color: #000201;
   border: 2px dashed #2e7d32;
   border-radius: 8px;
 }
@@ -232,4 +232,21 @@
   border: 2px dashed #2e7d32;
   border-radius: 8px;
   margin-top: 20px;
+}
+
+.order-confirmation {
+  background-color: rgba(240, 255, 244, 0.95);
+  padding: 20px;
+  border: 2px dashed #2e7d32;
+  border-radius: 8px;
+  margin-top: 20px;
+  color: black; /* ✅ Make all text black inside the box */
+}
+
+.order-confirmation p {
+  color: black; /* ensure paragraph text is black */
+}
+
+.order-confirmation strong {
+  color: black;
 }

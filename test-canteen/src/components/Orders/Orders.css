@@ -65,3 +65,144 @@
 .clear-history-btn:hover {
   background-color: #b71c1c;
 }
+
+/* Orders page container */
+.orders-container {
+  margin-top: 100px; /* to avoid overlap with fixed navbar */
+  padding: 30px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: 'Segoe UI', sans-serif;
+  color: black; /* ✅ Set default text color to black */
+}
+
+/* Section Title */
+.orders-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: rgb(255, 255, 255); /* ✅ Changed from green to black */
+  margin-bottom: 20px;
+}
+
+/* Each order block */
+.order-card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 6px rgba(0, 128, 0, 0.1);
+  color: black; /* ✅ Ensure text inside card is black */
+}
+
+/* Order title/header */
+.order-header {
+  font-size: 18px;
+  font-weight: 600;
+  color: black; /* ✅ Changed from #333 to black */
+  margin-bottom: 10px;
+}
+
+/* Order item list */
+.order-items {
+  padding-left: 20px;
+  margin: 0;
+  color: black; /* ✅ Ensure list items are black */
+}
+
+.order-items li {
+  margin-bottom: 6px;
+}
+
+/* Order total */
+.order-total {
+  font-weight: bold;
+  color: black; /* ✅ Changed from green to black */
+  margin-top: 10px;
+}
+
+.clear-history-btn {
+  background-color: #c62828;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.clear-history-btn:hover {
+  background-color: #b71c1c;
+}
+
+.orders-table-wrapper {
+  overflow-x: auto;
+  margin-top: 20px;
+}
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  color: black;
+  font-size: 15px;
+}
+
+.orders-table th,
+.orders-table td {
+  padding: 12px;
+  border: 1px solid #ccc;
+  text-align: left;
+  vertical-align: top;
+}
+
+.orders-table th {
+  background-color: #2e7d32;
+  color: white;
+}
+
+.order-items-list {
+  margin: 0;
+  padding-left: 18px;
+  list-style-type: disc;
+}
+
+.cancel-order-btn {
+  background-color: #c62828;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cancel-order-btn:hover {
+  background-color: #b71c1c;
+}
+
+.orders-table-wrapper {
+  overflow-x: auto;
+  margin-top: 20px;
+}
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+
+.orders-table th,
+.orders-table td {
+  border: 1px solid #ccc;
+  padding: 10px 12px;
+  text-align: center;
+  color: #000;
+  background-color: #fff;
+}
+
+.orders-table th {
+  background-color: #2e7d32;
+  color: white;
+}
